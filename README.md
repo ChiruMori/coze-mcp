@@ -31,9 +31,9 @@ pip install -r requirements.txt
 export MCP_ENDPOINT=<your_mcp_endpoint>
 ```
 
-3. Run the calculator example | 运行计算器示例:
+1. Run the example | 运行:
 ```bash
-python mcp_pipe.py calculator.py
+python mcp_pipe.py coze_req.py
 ```
 
 Or run all configured servers | 或运行所有配置的服务:

@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "cozepy>=0.9.1",
     "mcp>=1.14.0",
     "mcp-proxy>=0.8.2",
     "pydantic>=2.11.7",

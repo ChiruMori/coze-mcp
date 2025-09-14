@@ -48,8 +48,6 @@ python mcp_pipe.py
 ## Project Structure | 项目结构
 
 - `mcp_pipe.py`: Main communication pipe that handles WebSocket connections and process management | 处理WebSocket连接和进程管理的主通信管道
-- `calculator.py`: Example MCP tool implementation for mathematical calculations | 用于数学计算的MCP工具示例实现
-- `requirements.txt`: Project dependencies | 项目依赖
 
 ## Config-driven Servers | 通过配置驱动的服务
 
@@ -60,56 +58,17 @@ python mcp_pipe.py
 - 有参数时运行单个本地脚本文件
 - `type=stdio` 直接启动；`type=sse/http` 通过 `python -m mcp_proxy` 代理
 
-## Creating Your Own MCP Tools | 创建自己的MCP工具
+## 构建说明
 
-Here's a simple example of creating an MCP tool | 以下是一个创建MCP工具的简单示例:
+项目支持 Docker 方式打包与部署，推荐操作：
 
-```python
-from mcp.server.fastmcp import FastMCP
-
-mcp = FastMCP("YourToolName")
-
-@mcp.tool()
-def your_tool(parameter: str) -> dict:
-    """Tool description here"""
-    # Your implementation
-    return {"success": True, "result": result}
-
-if __name__ == "__main__":
-    mcp.run(transport="stdio")
-```
-
-## Use Cases | 使用场景
-
-- Mathematical calculations | 数学计算
-- Email operations | 邮件操作
-- Knowledge base search | 知识库搜索
-- Remote device control | 远程设备控制
-- Data processing | 数据处理
-- Custom tool integration | 自定义工具集成
-
-## Requirements | 环境要求
-
-- Python 3.7+
-- websockets>=11.0.3
-- python-dotenv>=1.0.0
-- mcp>=1.8.1
-- pydantic>=2.11.4
-- mcp-proxy>=0.8.2
-
-## Contributing | 贡献指南
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-欢迎贡献代码！请随时提交Pull Request。
+- `docker build -t coze-mcp .` 构建镜像
+- `docker save -o coze-mcp.tar coze-mcp:latest` 保存镜像文件，如果有私有仓库则推荐使用 `docker push` 完成上传
+- `docker load -i coze-mcp.tar` 加载镜像到 docker，如果使用私有仓库，则通过 `docker pull` 完成拉取
+- `docker -it -d --name coze-mcp -e MCP_ENDPOINT={ENDPOINT} -e COZE_BEARER={COZE_BEARER} --restart=unless-stopped coze-mcp:latest` 启动服务
 
 ## License | 许可证
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 本项目采用MIT许可证 - 详情请查看LICENSE文件。
-
-## Acknowledgments | 致谢
-
-- Thanks to all contributors who have helped shape this project | 感谢所有帮助塑造这个项目的贡献者
-- Inspired by the need for extensible AI capabilities | 灵感来源于对可扩展AI能力的需求

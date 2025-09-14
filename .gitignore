@@ -4,3 +4,6 @@ node_modules/
 
 .env
 .vscode
+src/coze_mcp.egg-info/
+dist/
+*.tar
